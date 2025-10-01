@@ -1,3 +1,4 @@
+import { TemaService } from './../../tema/service/tema.service';
 import { Postagem } from './../entities/postagem.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,6 +10,7 @@ export class PostagemService {
   constructor(
     @InjectRepository(Postagem)
     private postagemRepository: Repository<Postagem>,
+    private TemaService: TemaService,
   ) {}
 
   async findAll(): Promise<Postagem[]> {
@@ -47,13 +49,17 @@ export class PostagemService {
   }
 
   async create(postagem: Postagem): Promise<Postagem> {
+    await this.postagemRepository.save(postagem);
+
     return await this.postagemRepository.save(postagem);
   }
 
   async update(postagem: Postagem): Promise<Postagem> {
     await this.findById(postagem.id);
 
-    return await this.postagemRepository.save(postagem);
+    await this.TemaService.findById(postagem.tema.id);
+
+    return this.postagemRepository.save(postagem);
   }
 
   async delete(id: number): Promise<DeleteResult> {
