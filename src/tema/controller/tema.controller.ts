@@ -9,10 +9,13 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { Tema } from '../entities/tema.entitiy';
+import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guards';
 import { TemaService } from '../service/tema.service';
+import { Tema } from '../entities/tema.entitiy';
 
+@UseGuards(JwtAuthGuard)
 @Controller('/temas')
 export class TemaController {
   constructor(private readonly temaService: TemaService) {}
@@ -37,14 +40,14 @@ export class TemaController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() tema: Tema): Promise<Tema> {
-    return this.temaService.create(tema);
+  create(@Body() Tema: Tema): Promise<Tema> {
+    return this.temaService.create(Tema);
   }
 
   @Put()
   @HttpCode(HttpStatus.OK)
-  update(@Body() tema: Tema): Promise<Tema> {
-    return this.temaService.update(tema);
+  update(@Body() Tema: Tema): Promise<Tema> {
+    return this.temaService.update(Tema);
   }
 
   @Delete('/:id')
