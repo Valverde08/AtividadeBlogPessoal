@@ -9,7 +9,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Blog Pessoal')
     .setDescription('Projeto Blog Pessoal')
-    .setContact('Generation Brasil', '', 'generation@email.com')
+    .setContact('Generation Brasil', '', 'valverde88@outlook.com')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

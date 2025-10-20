@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/guard/jwt-auth.guards';
 import { TemaService } from '../service/tema.service';
-import { Tema } from '../entities/tema.entitiy';
+import { Tema } from '../entities/tema.entity';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Tema')
