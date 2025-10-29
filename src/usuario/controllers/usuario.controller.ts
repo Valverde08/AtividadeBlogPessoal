@@ -47,4 +47,10 @@ export class UsuarioController {
   async update(@Body() usuario: Usuario): Promise<Usuario> {
     return this.usuarioService.update(usuario);
   }
+
+  @Get('/nome/:nome')
+  @HttpCode(HttpStatus.OK)
+  findAllByNome(@Param('nome') nome: string): Promise<Usuario[]> {
+    return this.usuarioService.findAllByNome(nome);
+  }
 }

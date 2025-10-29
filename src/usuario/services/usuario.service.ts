@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, HttpException } from '@nestjs/common';
 import { Usuario } from '../entities/usuario.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { Bcrypt } from '../../auth/bcrypt/bcrypt';
 import { HttpStatus } from '@nestjs/common/enums';
 
@@ -48,6 +48,14 @@ export class UsuarioService {
       throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
 
     return usuario;
+  }
+
+  async findAllByNome(nome: string): Promise<Usuario[]> {
+    return await this.usuarioRepository.find({
+      where: {
+        nome: ILike(`%${nome}%`),
+      },
+    });
   }
 
   async create(usuario: Usuario): Promise<Usuario> {

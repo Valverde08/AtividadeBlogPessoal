@@ -14,9 +14,13 @@ export class Usuario {
   @ApiProperty()
   nome: string;
 
+  @Column({ length: 5000, nullable: true })
+  @ApiProperty()
+  foto: string;
+
   @IsEmail()
   @IsNotEmpty()
-  @Column({ length: 255, nullable: false })
+  @Column({ length: 245, nullable: false })
   @ApiProperty({ example: 'email@email.com' })
   usuario: string;
 
@@ -25,10 +29,6 @@ export class Usuario {
   @Column({ length: 255, nullable: false })
   @ApiProperty()
   senha: string;
-
-  @Column({ length: 5000 })
-  @ApiProperty()
-  foto: string;
 
   @ApiProperty()
   @OneToMany(() => Postagem, (postagem) => postagem.usuario)
